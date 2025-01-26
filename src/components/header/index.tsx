@@ -1,7 +1,23 @@
 import Link from "next/link"
-import { FiUser, FiLogOut } from 'react-icons/fi'
+import { FiUser, FiLogOut, FiLoader, FiLock } from 'react-icons/fi'
+import { signIn, signOut, useSession } from 'next-auth/react'
 
 export function Header() {
+
+
+    async function Header() {
+        const { status, data } = useSession();
+    }
+
+    async function handleLogin() {
+        await signIn();
+    }
+
+    async function handleLogout() {
+        await signOut();
+    }
+
+
     return (
         <header className="w-full flex items-center px-2 py-4 bg-white h-20 shadow-sm">
             <div className="w-full flex items-center justify-between max-w-7xl mx-auto">
@@ -10,6 +26,17 @@ export function Header() {
                         <span className="text-blue-500">DEV</span> CONTROLE
                     </h1>
                 </Link>
+
+                {status === "loading" && (
+                    <button>
+                        <FiLoader size={26} color="#4B5563" />
+                    </button>
+                )}
+                {status === "unauthenticated" && (
+                    <button>
+                        <FiLock size={26} color="#4B5563" />
+                    </button>
+                )}
 
                 <div className="flex items-baseline gap-4">
 

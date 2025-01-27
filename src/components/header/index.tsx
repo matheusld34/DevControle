@@ -1,13 +1,11 @@
-import Link from "next/link"
+"use client"
+
+import Link from 'next/link'
 import { FiUser, FiLogOut, FiLoader, FiLock } from 'react-icons/fi'
 import { signIn, signOut, useSession } from 'next-auth/react'
 
 export function Header() {
-
-
-    async function Header() {
-        const { status, data } = useSession();
-    }
+    const { status, data } = useSession();
 
     async function handleLogin() {
         await signIn();
@@ -16,7 +14,6 @@ export function Header() {
     async function handleLogout() {
         await signOut();
     }
-
 
     return (
         <header className="w-full flex items-center px-2 py-4 bg-white h-20 shadow-sm">
@@ -27,27 +24,31 @@ export function Header() {
                     </h1>
                 </Link>
 
+
                 {status === "loading" && (
-                    <button>
-                        <FiLoader size={26} color="#4B5563" />
+                    <button className="animate-spin">
+                        <FiLoader size={26} color="#4b5563" />
                     </button>
                 )}
+
                 {status === "unauthenticated" && (
-                    <button>
-                        <FiLock size={26} color="#4B5563" />
+                    <button onClick={handleLogin}>
+                        <FiLock size={26} color="#4b5563" />
                     </button>
                 )}
 
-                <div className="flex items-baseline gap-4">
+                {status === "authenticated" && (
+                    <div className="flex items-baseline gap-4">
+                        <Link href="/dashboard">
+                            <FiUser size={26} color="#4b5563" />
+                        </Link>
 
-                    <Link href="/dashboard">
-                        <FiUser size={26} color="#4b5563" />
-                    </Link>
+                        <button onClick={handleLogout}>
+                            <FiLogOut size={26} color="#ff2313" />
+                        </button>
+                    </div>
+                )}
 
-                    <button>
-                        <FiLogOut size={26} color="#4b5563" />
-                    </button>
-                </div>
 
             </div>
         </header>

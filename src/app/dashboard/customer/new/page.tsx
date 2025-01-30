@@ -23,7 +23,7 @@ export default async function NewCustomer() {
                     <h1 className="text-3xl font-bold">Novo cliente</h1>
                 </div>
 
-                <NewCustomerForm />
+                <NewCustomerForm userId={session.user.id} />
 
             </main>
         </Container>

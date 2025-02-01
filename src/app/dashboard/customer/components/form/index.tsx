@@ -35,6 +35,7 @@ export function NewCustomerForm({ userId }: { userId: string }) {
             address: data.address,
             userId: userId
         })
+        router.refresh();
         router.replace("/dashboard/customer")
     }
 
@@ -73,7 +74,7 @@ export function NewCustomerForm({ userId }: { userId: string }) {
             <label className="mb-1 text-lg font-medium">Endereço completo</label>
             <Input
                 type="text"
-                name="adress"
+                name="address"
                 placeholder="Digite o endereço do cliente..."
                 error={errors.address?.message}
                 register={register}
